@@ -1,0 +1,127 @@
+<div class="grid">
+    <div class="col-12 md:col-12">
+		<div class="card" style="padding-bottom: 3px; padding-top: 25px;">
+			<div class="py-0 p-fluid p-formgrid grid">
+				<div class="field col-12 md:col-6">
+					<h5 class="my-0">Cadastro de Cidades</h5>
+					<p-toast key="tst" [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
+					<!-- #GABRIEL: span serve pra estilizar texto sem se preocupar com a estrutura -->
+                    <span>Atualiza os dados de uma cidade no Sistema</span>
+					<p-breadcrumb class="max-w-full" id="breadcrumb" [model]="items" [home]="home" [style]="{border: 'none'}"></p-breadcrumb>
+				</div>
+				<div class="field col-12 md:col-6">
+					<div class="flex flex-wrap  justify-content-end">				
+						<p-button pRipple label="Voltar" styleClass="p-button-outlined p-button-secondary" name="voltar" id="voltar" (click)="cancel()"></p-button>
+					</div>
+				</div>		
+			</div>
+		</div>  
+		<div class="card">
+			<h5 class="pb-3">Dados da Cidade</h5>	
+			<form> 	
+				<div class="p-fluid p-formgrid grid">
+					<div class="field col-12 md:col-4">
+						<div class="p-inputgroup">
+							<span class="p-inputgroup-addon">
+								<i class="bi bi-map"></i>
+							</span>
+                            <!-- #GABRIEL: p-float-label é de um framework com componentes para interface angular-->
+							<span class="p-float-label">
+                                <!-- #GABRIEL: ngModel serve pra estilizar texto sem se preocupar com a estrutura -->
+								<input type="text" inputId="nome" pInputText [(ngModel)]="cidade.nome" name="cidade_nome" autocomplete="off"> 
+                                <!-- #GABRIEL: Basicamente o campo de texto do nome vai ser formato para aparecer texto pré disposto -->
+								<label for="nome">Nome da cidade</label>
+							</span>
+						</div>
+					</div>
+
+                    
+                    <!-- #GABRIEL: Duas listas de opção, uma pra estado e outra pra país-->
+
+                    <!-- ## ESTADOS ## -->
+                    <div class="field col-12 md:col-4">                    			
+                        <span class="p-float-label">
+                            <!-- #GABRIEL: dropdown é um recurso para criar uma lista de opções -->
+                            <!-- #GABRIEL: Dentro desse recurso a linguagem da declaração é typescript -->
+                            <p-dropdown
+                                [options]="estados" 
+                                [(ngModel)]="selectedEstados" 
+                                optionLabel="nome" 
+                                [filter]="true" 
+                                filterBy="nome" 
+                                [showClear]="true" 
+                                placeholder="Pais" 
+                                [ngModelOptions]="{standalone: true}"
+                            ></p-dropdown>
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="selectedEstados">                                    
+                                    <div>{{ selectedEstados.nome }}</div>
+                                </div>
+                            </ng-template>                            
+                            <ng-template let-pais pTemplate="item">
+                                <div class="flex align-items-center gap-2">                                
+                                    <div>{{ Estados.nome }}</div>
+                                </div>
+                            </ng-template>                            
+                            
+                            <label for="float-label">Estados</label>
+                        </span>                                        
+                    </div>     
+
+                    <!-- ## PAÍSES ## -->
+					<div class="field col-12 md:col-4">                    			
+                        <span class="p-float-label">
+                            <!-- #GABRIEL: dropdown é um recurso para criar uma lista de opções -->
+                            <!-- #GABRIEL: Dentro desse recurso a linguagem da declaração é typescript -->
+                            <p-dropdown
+                                [options]="paises" 
+                                [(ngModel)]="selectedPais" 
+                                optionLabel="nome" 
+                                [filter]="true" 
+                                filterBy="nome" 
+                                [showClear]="true" 
+                            placeholder="Estado" 
+                                [ngModelOptions]="{standalone: true}"
+                            ></p-dropdown>
+                            <ng-template pTemplate="selectedItem">
+                                <div class="flex align-items-center gap-2" *ngIf="selectedPais">                                    
+                                    <div>{{ selectedPais.nome }}</div>
+                                </div>
+                            </ng-template>                            
+                            <ng-template let-pais pTemplate="item">
+                                <div class="flex align-items-center gap-2">                                
+                                    <div>{{ pais.nome }}</div>
+                                </div>
+                            </ng-template>                            
+                            
+                            <label for="float-label">Pais</label>
+                        </span>                                        
+                    </div>                      
+					
+                    <!-- #GABRIEL: Dois campos de textos para as informações restantes de distância e pedágio-->
+                    <!-- #GABRIEL: VALOR DISTÂNCIA VAI SER IMPORTADO NO CAMPO NO TEXTO-->
+					<div class="field col-12 md:col-4">
+						<span class="p-float-label">
+							<input type="text" id="distancia_km" pInputText [(ngModel)]="cidade.distancia_km" name="cidade_distancia_km" autocomplete="off">
+							<label for="inputtext">Distância em Kilometros</label>
+						</span>
+					</div>
+                    <div class="field col-12 md:col-4">
+						<span class="p-float-label">
+                            <!-- #GABRIEL: VALOR DE PEDÁGIO VAI SER IMPORTADO NO CAMPO NO TEXTO-->
+							<input type="text" id="valor_pedagio" pInputText [(ngModel)]="cidade_valor_pedagio" name="cidade_valor_pedagio" autocomplete="off">
+							<label for="inputtext">Valor do pedágio</label>
+						</span>
+					</div>
+				</div>
+				<div class="p-fluid p-formgrid grid justify-content-end">
+					<div class="field col-12 md:col-1 ">
+						<div class="flex flex-wrap  ">
+							<button pButton pRipple label="Salvar" name="salvar" id="salvar" class="p-button-success" (click)="update()"></button>
+						</div>
+					</div>				
+				</div>
+			</form>			
+		</div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="card">
+    <p-table [value]="cidadesFull" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="8" responsiveLayout="scroll" [rowsPerPageOptions]="[5, 10, 15, 20]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="nome" style="width:30%">Nome<p-sortIcon field="code"></p-sortIcon></th>
+                <th pSortableColumn="pais_nome" style="width:20%">País<p-sortIcon field="code"></p-sortIcon></th>
+                <th pSortableColumn="estado_nome" style="width:20%">Estado<p-sortIcon field="code"></p-sortIcon></th>
+                <th style="width:14%">Distância</th>
+                <th style="width:14%">Valor Pedágio</th>
+                <th style="width:2%"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-cidade>
+            <tr>
+                <td>{{ cidade.nome }}</td>
+                <td>{{ cidade.pais_nome }}</td>
+                <td>{{ cidade.estado_nome }}</td>
+                <td>{{ cidade.distancia_km + ' km' }}</td>
+                <td>{{ 'R$' + cidade.valor_pedagio }}</td>
+                <td>
+                    <a routerLink="/app/cidades/update/{{cidade.cidade_id}}">
+                        <i class="bi bi-pencil-square"></i>          
+                    </a>  
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
